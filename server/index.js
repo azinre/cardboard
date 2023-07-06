@@ -3,98 +3,79 @@ const app = express();
 const cors = require("cors");
 const pool = require("./db");
 
-// Middleware
+
 app.use(cors());
 app.use(express.json()); 
 
-// ROUTES
+//ROUTES//
 
-// Create a cartboard
-app.post("/cartboards", async (req, res) => {
+//create a user
+
+app.post("/users", async (req, res) => {
   try {
     const { description } = req.body;
-    const newCartboard = await pool.query(
-      "INSERT INTO cartboards (description) VALUES ($1) RETURNING *",
-      [description]
-    );
+    const newUser = await pool.query(
+      "INSERT INTO user (description) VALUES($1) RETURNING *",[description]);
 
-    res.json(newCartboard.rows[0]);
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).json({ error: "Server error" });
+    res.json(newUser.rows[0]);
+  } catch (err) {
+    console.error(err.message);
   }
 });
 
-// Get all cartboards
-app.get("/cartboards", async (req, res) => {
+//get all users
+
+app.get("/users", async (req, res) => {
   try {
-    const allCartboards = await pool.query("SELECT * FROM cartboards");
-    res.json(allCartboards.rows);
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).json({ error: "Server error" });
+    const allusers = await pool.query("SELECT * FROM user");
+    
+    res.json(allusers.rows);
+  } catch (err) {
+    console.error(err.message);
   }
 });
 
-// Get a specific cartboard
-app.get("/cartboards/:id", async (req, res) => {
+//get a user
+
+app.get("/users/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const cartboard = await pool.query("SELECT * FROM cartboards WHERE id = $1", [id]);
+    const user = await pool.query("SELECT * FROM user WHERE user_id = $1", [id]);
 
-    // if (cartboard.rows.length === 0) {
-    //   return res.status(404).json({ error: "Cartboard not found" });
-    // }
-
-    res.json(cartboard.rows[0]);
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).json({ error: "Server error" });
+    res.json(user.rows[0]);
+  } catch (err) {
+    console.error(err.message);
   }
 });
 
-// Update a cartboard
-app.put("/cartboards/:id", async (req, res) => {
+//update a user
+
+app.put("/users/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { description } = req.body;
+    const updateUser = await pool.query(
+      "UPDATE user SET description = $1 WHERE user_id = $2", [description, id]);
 
-    const updatedCartboard = await pool.query(
-      "UPDATE cartboards SET description = $1 WHERE id = $2 RETURNING *",
-      [description, id]
-    );
-
-    if (updatedCartboard.rows.length === 0) {
-      return res.status(404).json({ error: "Cartboard not found" });
-    }
-
-    res.json(updatedCartboard.rows[0]);
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).json({ error: "Server error" });
+    res.json("User was updated!");
+  } catch (err) {
+    console.error(err.message);
   }
 });
 
-// Delete a cartboard
-app.delete("/cartboards/:id", async (req, res) => {
+//delete a user
+
+app.delete("/users/:id", async (req, res) => {
   try {
     const { id } = req.params;
-
-    const deletedCartboard = await pool.query("DELETE FROM cartboards WHERE id = $1 RETURNING *", [id]);
-
-    if (deletedCartboard.rows.length === 0) {
-      return res.status(404).json({ error: "Cartboard not found" });
-    }
-
-    res.json(deletedCartboard.rows[0]);
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).json({ error: "Server error" });
+    const deleteUser = await pool.query("DELETE FROM user WHERE user_id = $1", [id]);
+    
+    res.json("User was deleted!");
+  } catch (err) {
+    console.log(err.message);
   }
 });
 
-// Start the server
-const PORT = 5000;
-app.listen(PORT, () => {
-  console.log("Server has started on port 5000");
+app.listen(5432, () => {
+  console.log("server has started on port 5432");
 });
