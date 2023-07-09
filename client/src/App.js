@@ -10,6 +10,8 @@ function App() {
       <div className="container">
         <InputBoard/> 
       </div>
+      hi
+      
     </Fragment>
   );
 }
