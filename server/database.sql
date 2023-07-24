@@ -1,7 +1,7 @@
--- Create the cartboard database
+
 CREATE DATABASE cartboard;
 
--- Switch to the "cartboard" database
+
 \c cartboard;
 
 -- Create the "users" table
@@ -12,7 +12,7 @@ CREATE TABLE users (
   password VARCHAR(255) NOT NULL
 );
 
--- Create the "cardboards" table
+
 CREATE TABLE cardboards (
   cardboard_id SERIAL PRIMARY KEY,
   title VARCHAR(255) NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE cardboards (
   updated_at TIMESTAMP DEFAULT NOW()
 );
 
--- Create the junction table "cardboard_user" for the many-to-many relationship
+
 CREATE TABLE cardboard_user (
   cardboard_id INTEGER REFERENCES cardboards(cardboard_id) ON DELETE CASCADE,
   user_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE,

@@ -60,21 +60,10 @@ function SignUp() {
                     autoFocus
                     component={RFTextField}
                     disabled={submitting || sent}
-                    autoComplete="given-name"
+                    autoComplete="username"
                     fullWidth
-                    label="First name"
-                    name="firstName"
-                    required
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Field
-                    component={RFTextField}
-                    disabled={submitting || sent}
-                    autoComplete="family-name"
-                    fullWidth
-                    label="Last name"
-                    name="lastName"
+                    label="username"
+                    name="username"
                     required
                   />
                 </Grid>
