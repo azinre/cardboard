@@ -22,7 +22,7 @@ export default function ProductHero() {
         alt="increase priority"
       />
       <Typography color="inherit" align="center" variant="h2" marked="center">
-        Upgrade your Sundays
+      All gifts & occasions
       </Typography>
       <Typography
         color="inherit"
@@ -30,7 +30,7 @@ export default function ProductHero() {
         variant="h5"
         sx={{ mb: 4, mt: { xs: 4, sm: 10 } }}
       >
-        Enjoy secret offers up to -70% off the best luxury hotels every Sunday.
+        Your data is safe with us.
       </Typography>
       <Button
         color="secondary"

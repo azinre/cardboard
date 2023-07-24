@@ -1,22 +1,14 @@
 import React from 'react';
-
+import SignIn from './pages/SignIn';
 
 function App() {
    
   return (
     <div className="App">
-      <header className="App-header">
-        
-        <h1>hi</h1>
-        
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header className="App-header">        
+        <div>
+          <SignIn/>
+        </div> 
       </header>
     </div>
   );
